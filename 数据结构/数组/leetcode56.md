@@ -1,0 +1,37 @@
+### 区间合并
+题意：合并所有重叠的区间，返回一个不重叠的区间数组
+```Java
+// Java 实现
+
+class Solution {
+    public int[][] merge(int[][] arr) {
+        if(arr == null || arr.length <= 1){
+            return arr;
+        }
+        Arrays.sort(arr, new Comparator<int[]>(){
+            @Override
+            public int compare(int[] a, int[] b){
+                return a[0] - b[0];
+            }
+        });
+        List<int[]> list = new ArrayList<>();
+        int idx = 0;
+        // 指针两次下移
+        while(idx < arr.length){
+            int left = arr[idx][0];
+            int right = arr[idx][1];
+            // while循环里，符合条件才+1
+            while(idx < arr.length-1 && right >= arr[idx+1][0]){
+                right = Math.max(right, arr[idx+1][1]);
+                // 这里就在指针前移了
+                idx++;
+            }
+            // 已经是当前最大区间了，可以加进去list
+            list.add(new int[]{left, right});
+            // 继续下移
+            idx++;
+        }
+        return list.toArray(new int[list.size()][2]);
+    }
+}
+```
