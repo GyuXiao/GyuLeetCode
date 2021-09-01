@@ -50,6 +50,7 @@ public class MergeSort implements IArraySort {
         int[] right = Arrays.copyOfRange(arr, middle, arr.length);
         return merge(sort(left), sort(right));
     }
+
     protected int[] merge(int[] left, int[] right) {
         int[] result = new int[left.length + right.length];
         int i = 0;
@@ -93,17 +94,22 @@ public class HeapSort implements IArraySort {
         for (int i = len - 1; i > 0; i--) {
             swap(arr, 0, i);
             len--;
+            // 为什么这里还要 heapify?
+            // 因为这里我们是在模拟从堆里取值并放到 arr 中，每次取值都相当于删除节点操作，因此堆的结构都会发生变化
+            // 调用 heapify，正是对结构的调整
             heapify(arr, 0, len);
         }
         return arr;
     }
 
+    // 建一个 大顶堆
     private void buildMaxHeap(int[] arr, int len) {
         for (int i = (int) Math.floor(len / 2); i >= 0; i--) {
             heapify(arr, i, len);
         }
     }
 
+    // 以递归形式，将一个数组堆化
     private void heapify(int[] arr, int i, int len) {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
