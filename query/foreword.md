@@ -1,6 +1,7 @@
-## 寻找一个数(基本的二分搜索)
+## 寻找一个数
 ```Java
 // Java 实现
+// 最基本的二分查找了，建议多看几遍，毕竟万变不离其宗
 
 int binarySearch(int[] nums, int target) {
     int left = 0; 
